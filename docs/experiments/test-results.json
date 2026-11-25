@@ -1,0 +1,20 @@
+{
+  "device": "iPhone 18 Pro Max - iOS 27.2 Simulator",
+  "runner": "x86Sim 0.6.0",
+  "result": "passed",
+  "durationSeconds": 6.032,
+  "counts": {
+    "passed": 1,
+    "failed": 0,
+    "skipped": 0,
+    "total": 1
+  },
+  "target": "GamingUITests",
+  "tests": [
+    {
+      "name": "consumerModuleUsesGamingUIModule()",
+      "result": "passed",
+      "durationSeconds": 0.033
+    }
+  ]
+}

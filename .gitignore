@@ -3,6 +3,7 @@
 .bsp/
 /Packages
 /Examples/GamingApp/xtool/
+/Examples/NativeWidgetProbe/xtool/
 xcuserdata/
 DerivedData/
 .swiftpm/configuration/registries.json

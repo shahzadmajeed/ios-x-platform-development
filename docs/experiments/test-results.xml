@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="x86sim test" tests="1" failures="0" skipped="0" time="6.032">
+  <testsuite name="GamingUITests.SwiftTesting" tests="1" failures="0" errors="0" skipped="0" time="0.033">
+    <testcase classname="SwiftTesting" name="consumerModuleUsesGamingUIModule()" time="0.033" />
+  </testsuite>
+</testsuites>

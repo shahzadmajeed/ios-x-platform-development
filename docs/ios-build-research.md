@@ -1,6 +1,6 @@
 # Building iOS apps: Xcode, SwiftPM, xtool, and x86Sim
 
-**Research snapshot:** 2026-11-24  
+**Research snapshot:** 2026-11-25
 **Host context:** Linux x86-64 under WSL2  
 **Installed at the start of this evaluation:** xtool 1.24.0 and x86Sim 0.5.3
 
@@ -50,7 +50,7 @@ project-specific validation; ❌ not available in that workflow.
 | App extensions and widgets | ✅ Native extension targets, embedding, signing, and Apple simulator/device workflows. | ❌ SwiftPM can build modules but does not provide the complete extension-target, embedding, signing, and deployment workflow. | ◐ Stable xtool documents a SwiftPM extension workflow. Beta project support is not a guarantee for every extension type; xtool’s guide reports ExtensionKit limitations. |
 | AppDelegate / SceneDelegate and app code | ✅ Built and run through Apple’s toolchain and simulator/device environments. | ◐ Code can be part of a package target when its Apple frameworks and SDK are available; SwiftPM alone does not provide the full iOS app run/deploy workflow. | ✅ Code can build when supported by the project path, compiler, and SDK. Runtime behavior depends on the simulator used separately. |
 | Signing and distribution | ✅ Native signing, provisioning, archive, and export workflows. | ❌ No built-in iOS signing, provisioning, archive, or App Store export workflow. | ◐ xtool has Apple Developer Services and signing workflows. Validate project signing, extension entitlements, and archive output for the app. |
-| Tests | ✅ `xcodebuild test`, `build-for-testing`, and `test-without-building` support schemes and destinations. | ✅ `swift test` runs package test targets where the host platform and dependencies support them. Linux cannot run this app’s Apple-framework-dependent tests with plain SwiftPM. | ◐ xtool’s `dev` CLI builds/runs apps but does not expose an Xcode-equivalent `test` action. x86Sim 0.6 documents `x86sim test --spm` for SwiftPM package tests; Xcode-project test bundles still need Xcode’s build system. |
+| Tests | ✅ `xcodebuild test`, `build-for-testing`, and `test-without-building` support schemes and destinations. | ✅ `swift test` runs package test targets where the host platform and dependencies support them. Linux cannot run this app’s Apple-framework-dependent tests with plain SwiftPM. | ◐ xtool `dev` has no test action, but beta SwiftBuild compiled a native test target in the probe. x86Sim 0.6 then ran its `.xctest` bundle: the workspace’s one Swift Testing test passed. This does not validate larger or UI-test suites. |
 | Simulator install/run | ✅ Apple Simulator and device workflows integrate with Xcode. | ❌ SwiftPM does not create/manage an iOS simulator or install an app into one. | ◐ Build via xtool, then install/run with a separate simulator such as x86Sim; `xtool dev run --simulator` is documented as macOS-only. |
 | IDE, previews, debugging, Instruments | ✅ Xcode provides previews, LLDB, Instruments, and related workflows. | ❌ SwiftPM is a package manager/build/test tool, not an IDE or simulator. | ❌ xtool is a CLI/build tool, not the Xcode IDE. Beta hot reload is documented for macOS, not Linux. |
 | Host platform | ❌ Apple’s Xcode toolchain requires macOS. | ✅ SwiftPM runs on Linux and macOS, subject to the installed compiler, SDKs, and package requirements. | ✅ xtool targets Linux and other supported hosts, with Apple SDK material supplied separately. |
@@ -87,7 +87,8 @@ is the stable-version reference.
 | Role | Runs Apple simulator runtimes on x86-64 Linux. It complements a builder; it is not a full Apple-equivalent Xcode build system. |
 | Apps | Runs compatible arm64 simulator `.app` builds. It can also convert eligible device-built apps for simulator use; this is not a guarantee for every `.ipa`. |
 | Devices and runtimes | Provides Linux device/runtime management and GUI/CLI workflows. This environment has iOS 27.2 configured. |
-| Tests | Can run XCTest/XCUITest bundles. x86Sim’s docs say Xcode-project test bundles need to be built on a Mac; Swift package tests can be built on Linux. |
+| Visible window | `x86sim view` opens a separate GTK viewer; CLI install/launch does not open it automatically. On this WSL2 host, GTK 4 introspection support had to be installed before the viewer could start. This is not Apple's macOS Simulator.app. |
+| Tests | Can run XCTest/XCUITest bundles. x86Sim 0.6 docs describe Xcode-project test bundles as Mac-built; this probe demonstrates one small Swift Testing bundle built by xtool beta and run by x86Sim 0.6 on Linux. |
 | Automation and debugging | Documents CLI/browser automation, accessibility interaction, LLDB, logs, screenshots, and CPU profiling. |
 | Differences from Apple’s simulator | Uses arm64-to-x86-64 translation and translates Metal to Vulkan/software paths. Some hardware/services are missing; it is not a production performance or security-validation substitute. |
 
@@ -104,57 +105,71 @@ embedded extensions.
 
 ## Results on this Linux host
 
-The workspace originally contained Swift package manifests, but no native
-`.xcodeproj` or `.xcworkspace`. xtool 2.0.0-beta.1 generated a small
-`GamingApp` Xcode workspace from the app's Swift package. The resulting shared
-scheme has an empty `Testables` list; it does not include the separate test
-target in the root `GamingUI` package.
+The original workspace had Swift package manifests but no native Xcode
+project. The SwiftPM-based `GamingApp` was generated into an Xcode workspace
+and built with xtool beta; its scheme had no testables. To test a real project
+graph with an extension, the workspace now includes the minimal native
+[`NativeWidgetProbe.xcodeproj`](../Examples/NativeWidgetProbe/NativeWidgetProbe.xcodeproj).
+Its shared scheme has an iOS app target, an embedded WidgetKit extension, and
+a test target that references the original `GamingUI` package and its existing
+test source.
 
-The following beta build succeeded:
+The latest xtool prerelease checked on 2026-11-25 is 2.0.0-beta.1. From
+`Examples/NativeWidgetProbe`, the direct native project build succeeded:
 
 ```sh
-xtool dev build --scheme GamingApp-App \
-  --triple arm64-apple-ios-simulator --verbose
+xtool dev build --scheme NativeWidgetProbe \
+  --triple arm64-apple-ios-simulator
 ```
 
-SwiftBuild reported **Build completed** and produced an arm64 simulator app.
-It also emitted warnings that the Linux `ld64.lld` version does not support
-linking for the iOS Simulator platform and that the `gamingapp` package
-dependency was unused by a target. A successful build despite the linker
-warning is useful evidence for this sample, not proof that the output is
-equivalent to an Apple `xcodebuild` result.
+SwiftBuild reported **Build completed** and produced the app, embedded
+`NativeWidgetExtension.appex`, and `GamingUITests.xctest`. The Linux `ld64.lld`
+warning about iOS Simulator linking remains; this is a successful sample
+build, not proof of equivalence with Apple's linker or compatibility with a
+large application.
 
-The app was installed and launched on the configured iPhone 18 Pro Max /
-iOS 27.2 x86Sim device (bundle ID `com.example.GamingApp`). The running screen
-showed the interactive Gaming Hub. This verifies build, install, and launch for
-this sample.
+The app and widget extension installed on the iPhone 18 Pro Max / iOS 27.2
+x86Sim device. The native app launched successfully. Screenshots and exact
+steps are in the [native widget experiment report](experiments/xtool-native-widget-probe.md).
+The extension was compiled, embedded, and accepted by the installer, but it
+was **not added to the Home Screen**; widget rendering was not verified.
 
-The existing root-package test target was **not run successfully**:
+The existing workspace test target was wired into the native scheme and built
+by xtool beta. x86Sim 0.6.0's test runner executed its `.xctest` bundle on the
+running 0.5.3 simulator:
 
-- Plain Linux `swift test` stopped at `import SwiftUI` with
-  `error: no such module 'SwiftUI'`. The source also imports `UIKit`, but
-  compilation stopped at the first missing framework.
-- xtool 2.0.0-beta.1 exposes `dev build` and `dev run`, but no test action.
-- The generated app workspace contains no testables. The separate root test
-  target therefore was not included in that app scheme.
-- The x86Sim 0.6 documentation offers `x86sim test --spm`, but its Linux
-  development status here says the iOS test SDK is not built and requires
-  Xcode.xip; its test runner also could not use this installed 0.5.3
-  simulator data through the temporary 0.6 AppImage.
+**Result: 1 test passed, 0 failed, 0 skipped.**
+`consumerModuleUsesGamingUIModule()` passed in 0.033 seconds. The runner
+needed `llvm-lipo` on `PATH`; this host installed LLVM 22 for that prerequisite.
+Sanitized JSON and JUnit results are included with the experiment report.
 
-**Result:** app build/install/launch passed for the sample; “all tests passed”
-is not established. Running the package tests needs a working Apple-platform
-test SDK and simulator test runner (or Xcode on macOS), and a real Xcode
-project's test bundles still need the project’s actual build graph.
+Plain Linux `swift test` still stops at `import SwiftUI` with
+`error: no such module 'SwiftUI'`. The successful test used the native project
+build and x86Sim test runner; it does not establish that plain SwiftPM works on
+Linux. xtool beta itself still has no `dev test` action.
+
+The beta was also tried against Mozilla's actual Firefox iOS project at commit
+`98a238d`. Its 22-target graph did not produce an app: resource tasks tried to
+launch `actool` and `ibtool` from the source root instead of the SDK's emulated
+tool directory. The resulting build failure prevented tests, installation, and
+launch. See the [Firefox experiment report](experiments/xtool-firefox-ios.md)
+for the command, storage issue, and exact limits of this result.
+
+This experiment proves that this small, hand-authored Xcode project can build
+an app, embed a WidgetKit extension, compile its Swift Testing target, install
+on this x86Sim device, and run one logic test. It does not validate widget
+rendering, UI tests, signing, production entitlements, or the user's
+enterprise-scale project. No actual company Xcode project was present in the
+workspace.
 
 ## Implications for this workspace
 
-This workspace contains a `GamingUI` Swift package with a small test target
-and a separate `GamingApp` Swift package. It does not start as a native
-`.xcodeproj` or `.xcworkspace`, and it is not representative of a large
-enterprise app. A successful build here would prove only the tested sample
-path, not compatibility with 50+ mixed dependencies, 200+ targets, custom
-phases, or a complex extension graph.
+The original workspace contains a `GamingUI` Swift package with a small test
+target and a separate `GamingApp` Swift package; it does not start as a native
+`.xcodeproj` or `.xcworkspace`. The added NativeWidgetProbe is a separate small
+native fixture, not a representative enterprise app. The experiment proves
+only the tested sample path, not compatibility with 50+ dependencies,
+200+ targets, custom phases, or a complex extension graph.
 
 For an enterprise project, the prudent path is:
 

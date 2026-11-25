@@ -1,0 +1,439 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+		A10000000000000000000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1600;
+			};
+			buildConfigurationList = A10000000000000000000080 /* Build configuration list for PBXProject */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = A10000000000000000000010;
+			productRefGroup = A10000000000000000000020;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A10000000000000000000060 /* NativeWidgetProbe */,
+				A10000000000000000000061 /* NativeWidgetExtension */,
+				A20000000000000000000040 /* GamingUITests */,
+			);
+			packageReferences = (
+				A20000000000000000000070 /* XCLocalSwiftPackageReference "../.." */,
+			);
+		};
+		A10000000000000000000010 /* Main group */ = {
+			isa = PBXGroup;
+			children = (
+				A10000000000000000000011 /* Sources */,
+				A20000000000000000000010 /* GamingUITests.swift */,
+				A10000000000000000000020 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A10000000000000000000011 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				A10000000000000000000030 /* NativeWidgetProbeApp.swift */,
+				A10000000000000000000031 /* NativeWidget.swift */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		A10000000000000000000020 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A10000000000000000000032 /* NativeWidgetProbe.app */,
+				A10000000000000000000033 /* NativeWidgetExtension.appex */,
+				A20000000000000000000011 /* GamingUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A10000000000000000000030 /* NativeWidgetProbeApp.swift */ = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.swift;
+			path = NativeWidgetProbeApp.swift;
+			sourceTree = "<group>";
+		};
+		A10000000000000000000031 /* NativeWidget.swift */ = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.swift;
+			path = NativeWidget.swift;
+			sourceTree = "<group>";
+		};
+		A10000000000000000000032 /* NativeWidgetProbe.app */ = {
+			isa = PBXFileReference;
+			explicitFileType = wrapper.application;
+			includeInIndex = 0;
+			path = NativeWidgetProbe.app;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		A10000000000000000000033 /* NativeWidgetExtension.appex */ = {
+			isa = PBXFileReference;
+			explicitFileType = wrapper.app-extension;
+			includeInIndex = 0;
+			path = NativeWidgetExtension.appex;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		A20000000000000000000010 /* GamingUITests.swift */ = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.swift;
+			path = "../../Tests/GamingUITests/GamingUITests.swift";
+			sourceTree = "<group>";
+		};
+		A20000000000000000000011 /* GamingUITests.xctest */ = {
+			isa = PBXFileReference;
+			explicitFileType = wrapper.cfbundle;
+			includeInIndex = 0;
+			path = GamingUITests.xctest;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		A10000000000000000000040 /* App source */ = {
+			isa = PBXBuildFile;
+			fileRef = A10000000000000000000030 /* NativeWidgetProbeApp.swift */;
+		};
+		A10000000000000000000041 /* Widget source */ = {
+			isa = PBXBuildFile;
+			fileRef = A10000000000000000000031 /* NativeWidget.swift */;
+		};
+		A10000000000000000000042 /* Embed widget extension */ = {
+			isa = PBXBuildFile;
+			fileRef = A10000000000000000000033 /* NativeWidgetExtension.appex */;
+			settings = {
+				ATTRIBUTES = (
+					RemoveHeadersOnCopy,
+				);
+			};
+		};
+		A20000000000000000000020 /* GamingUI test source */ = {
+			isa = PBXBuildFile;
+			fileRef = A20000000000000000000010 /* GamingUITests.swift */;
+		};
+		A20000000000000000000021 /* GamingUI product */ = {
+			isa = PBXBuildFile;
+			productRef = A20000000000000000000071 /* GamingUI */;
+		};
+		A20000000000000000000022 /* GamingPreview product */ = {
+			isa = PBXBuildFile;
+			productRef = A20000000000000000000072 /* GamingPreview */;
+		};
+		A10000000000000000000050 /* App frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A10000000000000000000051 /* Widget frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A10000000000000000000052 /* App sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A10000000000000000000040 /* App source */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A10000000000000000000053 /* Widget sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A10000000000000000000041 /* Widget source */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A10000000000000000000054 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				A10000000000000000000042 /* Embed widget extension */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A20000000000000000000030 /* GamingUI test frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A20000000000000000000021 /* GamingUI product */,
+				A20000000000000000000022 /* GamingPreview product */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A20000000000000000000031 /* GamingUI test sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A20000000000000000000020 /* GamingUI test source */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A10000000000000000000060 /* NativeWidgetProbe */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A10000000000000000000081 /* Build configuration list for PBXNativeTarget "NativeWidgetProbe" */;
+			buildPhases = (
+				A10000000000000000000052 /* App sources */,
+				A10000000000000000000050 /* App frameworks */,
+				A10000000000000000000054 /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A10000000000000000000091 /* PBXTargetDependency */,
+			);
+			name = NativeWidgetProbe;
+			productName = NativeWidgetProbe;
+			productReference = A10000000000000000000032 /* NativeWidgetProbe.app */;
+			productType = "com.apple.product-type.application";
+		};
+		A10000000000000000000061 /* NativeWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A10000000000000000000082 /* Build configuration list for PBXNativeTarget "NativeWidgetExtension" */;
+			buildPhases = (
+				A10000000000000000000053 /* Widget sources */,
+				A10000000000000000000051 /* Widget frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NativeWidgetExtension;
+			productName = NativeWidgetExtension;
+			productReference = A10000000000000000000033 /* NativeWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		A20000000000000000000040 /* GamingUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A20000000000000000000060 /* Build configuration list for PBXNativeTarget "GamingUITests" */;
+			buildPhases = (
+				A20000000000000000000031 /* GamingUI test sources */,
+				A20000000000000000000030 /* GamingUI test frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GamingUITests;
+			packageProductDependencies = (
+				A20000000000000000000071 /* GamingUI */,
+				A20000000000000000000072 /* GamingPreview */,
+			);
+			productName = GamingUITests;
+			productReference = A20000000000000000000011 /* GamingUITests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		A10000000000000000000070 /* Project Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		A10000000000000000000071 /* Project Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		A10000000000000000000072 /* App Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGNING_ALLOWED = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.NativeWidgetProbe;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = (
+					iphoneos,
+					iphonesimulator,
+				);
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A10000000000000000000073 /* App Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGNING_ALLOWED = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.NativeWidgetProbe;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = (
+					iphoneos,
+					iphonesimulator,
+				);
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		A10000000000000000000074 /* Widget Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGNING_ALLOWED = NO;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Sources/NativeWidgetExtension-Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.NativeWidgetProbe.Widget;
+				PRODUCT_NAME = NativeWidgetExtension;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = (
+					iphoneos,
+					iphonesimulator,
+				);
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A10000000000000000000075 /* Widget Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGNING_ALLOWED = NO;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Sources/NativeWidgetExtension-Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.NativeWidgetProbe.Widget;
+				PRODUCT_NAME = NativeWidgetExtension;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = (
+					iphoneos,
+					iphonesimulator,
+				);
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		A20000000000000000000050 /* GamingUI Tests Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGNING_ALLOWED = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.GamingUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = (
+					iphoneos,
+					iphonesimulator,
+				);
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A20000000000000000000051 /* GamingUI Tests Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGNING_ALLOWED = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.GamingUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = (
+					iphoneos,
+					iphonesimulator,
+				);
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		A10000000000000000000080 /* Build configuration list for PBXProject */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A10000000000000000000070 /* Project Debug */,
+				A10000000000000000000071 /* Project Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A10000000000000000000081 /* Build configuration list for PBXNativeTarget "NativeWidgetProbe" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A10000000000000000000072 /* App Debug */,
+				A10000000000000000000073 /* App Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A10000000000000000000082 /* Build configuration list for PBXNativeTarget "NativeWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A10000000000000000000074 /* Widget Debug */,
+				A10000000000000000000075 /* Widget Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A20000000000000000000060 /* Build configuration list for PBXNativeTarget "GamingUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A20000000000000000000050 /* GamingUI Tests Debug */,
+				A20000000000000000000051 /* GamingUI Tests Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A10000000000000000000090 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A10000000000000000000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A10000000000000000000061;
+			remoteInfo = NativeWidgetExtension;
+		};
+		A10000000000000000000091 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A10000000000000000000061 /* NativeWidgetExtension */;
+			targetProxy = A10000000000000000000090 /* PBXContainerItemProxy */;
+		};
+		A20000000000000000000070 /* XCLocalSwiftPackageReference "../.." */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = "../..";
+		};
+		A20000000000000000000071 /* GamingUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A20000000000000000000070 /* XCLocalSwiftPackageReference "../.." */;
+			productName = GamingUI;
+		};
+		A20000000000000000000072 /* GamingPreview */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A20000000000000000000070 /* XCLocalSwiftPackageReference "../.." */;
+			productName = GamingPreview;
+		};
+	};
+	rootObject = A10000000000000000000001 /* Project object */;
+}
